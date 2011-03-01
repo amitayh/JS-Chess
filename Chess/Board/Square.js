@@ -1,5 +1,7 @@
 Chess.Board.Square = new Class({
 
+    piece: null,
+
     initialize: function(board, x, y) {
         this.board = board;
         this.x = x;
