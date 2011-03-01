@@ -1,11 +1,3 @@
-Object.flip = function(obj) {
-    var flipped = {};
-    Object.each(obj, function(item, key) {
-        flipped[item.toString()] = key;
-    });
-    return flipped;
-};
-
 Chess.Board = new Class({
 
     squares: [],
