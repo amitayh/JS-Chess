@@ -9,10 +9,8 @@ Chess.Board.Square = new Class({
     },
 
     getColor: function() {
-        var color = Chess.Board.Square.Color;
-        return (this.x.charCodeAt(0) % 2 && this.y.toInt() % 2) ? color.Black : color.White;
+        var xor = function(a, b) { return !a != !b; };
+        return xor(this.x.charCodeAt(0) % 2, this.y.toInt() % 2) ? Chess.Color.White : Chess.Color.Black;
     }
 
 });
-
-Chess.Board.Square.Color = {Black: 'black', White: 'white'};

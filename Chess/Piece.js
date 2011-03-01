@@ -4,6 +4,14 @@ Chess.Piece = new Class({
 
     initialize: function(player) {
         this.player = player;
+    },
+
+    canMove: function() {
+
+    },
+
+    canOccupy: function() {
+        return this.canMove();
     }
 
 });
