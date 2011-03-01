@@ -1,5 +1,5 @@
 Chess.Board.Square = new Class({
-
+    
     piece: null,
 
     initialize: function(board, x, y) {
@@ -10,7 +10,7 @@ Chess.Board.Square = new Class({
 
     getColor: function() {
         var xor = function(a, b) { return !a != !b; };
-        return xor(this.x.charCodeAt(0) % 2, this.y.toInt() % 2) ? Chess.Color.White : Chess.Color.Black;
+        return xor(this.x % 2, this.y % 2) ? Chess.Color.White : Chess.Color.Black;
     }
 
 });

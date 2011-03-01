@@ -1,18 +1,35 @@
+Object.flip = function(obj) {
+    var flipped = {};
+    Object.each(obj, function(item, key) {
+        flipped[item.toString()] = key;
+    });
+    return flipped;
+};
+
 Chess.Board = new Class({
 
-    squares: {},
+    squares: [],
 
     initialize: function() {
         this.initSquares();
     },
 
     initSquares: function() {
-        var that = this;
-        Chess.Board.X.each(function(x) {
-            Chess.Board.Y.each(function(y) {
-                that.squares[x + y] = new Chess.Board.Square(that, x, y);
-            });
-        });
+        for (var y = 0; y < 8; y++) {
+            var row = [];
+            for (var x = 0; x < 8; x++) {
+                row.push(new Chess.Board.Square(this, x, y))
+            }
+            this.squares.push(row);
+        }
+    },
+    
+    getSquare: function(x, y) {
+        try {
+            return this.squares[y][x];
+        } catch (e) {
+            return null;
+        }
     }
 
 });
