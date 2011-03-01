@@ -5,3 +5,5 @@ Chess.Piece = new Class({
     }
 
 });
+
+Chess.Piece.Color = {Black: 'black', White: 'white'};
