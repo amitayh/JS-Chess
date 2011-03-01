@@ -13,8 +13,8 @@ Chess.Game = new Class({
 
     initPlayers: function() {
         this.players = {
-            Black: new Chess.Player(this, Chess.Color.White),
-            White: new Chess.Player(this, Chess.Color.Black)
+            White: new Chess.Player(this, Chess.Color.White),
+            Black: new Chess.Player(this, Chess.Color.Black)
         };
     },
 
