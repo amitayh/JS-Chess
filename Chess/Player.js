@@ -11,22 +11,22 @@ Chess.Player = new Class({
     },
 
     initPieces: function() {
-        var that = this, piece, y, square;
+        var x, y, piece;
 
         // First row
-        ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook'].each(function(name, i) {
-            piece = new Chess.Piece[name.capitalize()](that);
-            y = Chess.Board.Y[that.color ? 7 : 0];
-            square = that.game.board.squares[Chess.Board.X[i] + y];
-            square.piece = piece;
-        });
+        ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Knight', 'Rook'].each(function(name, i) {
+            x = Chess.Board.X[i];
+            y = Chess.Board.Y[this.color ? 7 : 0];
+            piece = new Chess.Piece[name](this);
+            this.game.board.squares[x + y].piece = piece;
+        }, this);
 
         // Second row (pawns)
         for (var i = 0; i < 8; i++) {
-            piece = new Chess.Piece.Pawn(this);
+            x = Chess.Board.X[i];
             y = Chess.Board.Y[this.color ? 6 : 1];
-            square = this.game.board.squares[Chess.Board.X[i] + y];
-            square.piece = piece;
+            piece = new Chess.Piece.Pawn(this);
+            this.game.board.squares[x + y].piece = piece;
         }
     }
 

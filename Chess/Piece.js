@@ -7,7 +7,7 @@ Chess.Piece = new Class({
     },
 
     canMove: function() {
-
+        throw 'NotImplemented';
     },
 
     canOccupy: function() {
