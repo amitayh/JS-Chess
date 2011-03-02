@@ -1,4 +1,6 @@
 Chess.Piece = new Class({
+    
+    Implements: Events,
 
     player: null,
     
@@ -15,28 +17,23 @@ Chess.Piece = new Class({
     },
     
     moveTo: function(square) {
-        if (square.piece) {
-            square.piece.capture();
-        }
-        if (this.captured) {
-            this.captured = false;
-        } else {
-            this.square.piece = null;
+        if (square) {
+            if (square.piece) {
+                // Capture piece if square is occupied
+                square.piece.moveTo(null);
+            }
+            square.piece = this;
             this.moves++;
         }
-        this.square = square;
-        square.piece = this;
-        return this;
-    },
-    
-    capture: function() {
+        this.fireEvent('move', square);
+        this.captured = !square;
         this.square.piece = null;
-        this.square = null;
-        this.captured = true;
+        this.square = square;
         return this;
     },
 
     getValidMoves: function() {
+        // Filter invalid moves from all possible moves (namely - moves that endanger the king)
         var player = this.player,
             rivalPlayer = player.game.players[player.isWhite() ? 'Black' : 'White'],
             originalSquare = this.square,
@@ -47,20 +44,21 @@ Chess.Piece = new Class({
             var isValid = true;
 
             // Check original state
-            var originalPiece = square.piece ? square.piece : null;
+            var originalPiece = square.piece;
 
             // Simulate the move
             this.moveTo(square);
 
             // Go over rival's possible moves
-            for (var i = 0, l = rivalPlayer.pieces.length; i < l; i++) {
-                var piece = rivalPlayer.pieces[i];
+            var pieces = rivalPlayer.pieces, piece;
+            for (var i = 0, l = pieces.length; i < l; i++) {
+                piece = pieces[i];
                 if (!piece.captured) {
                     // If rival's piece is not captured, check if it can endanger the king
-                    var _moves = piece.getMoves(), _square;
-                    for (var _i = 0, _l = _moves.length; _i < _l; _i++) {
-                        _square = _moves[_i];
-                        if (_square.piece && _square.piece instanceof Chess.Piece.King) {
+                    var rivalMoves = piece.getMoves(), rivalSquare;
+                    for (var _i = 0, _l = rivalMoves.length; _i < _l; _i++) {
+                        rivalSquare = rivalMoves[_i];
+                        if (rivalSquare.piece && rivalSquare.piece instanceof Chess.Piece.King) {
                             isValid = false;
                             break;
                         }

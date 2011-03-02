@@ -5,6 +5,7 @@ Chess.Game = new Class({
     initialize: function() {
         this.initBoard();
         this.initPlayers();
+        this.nextRound();
     },
 
     initBoard: function() {
@@ -18,7 +19,7 @@ Chess.Game = new Class({
         };
     },
 
-    move: function(from, to) {
+    nextRound: function() {
         
     }
 

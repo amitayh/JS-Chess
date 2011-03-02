@@ -31,6 +31,7 @@ Chess.Piece.Rook.Movement = function(piece) {
             moves.push(square);
         }
     }
+    // TODO: implement castling move
 
     return moves;
 };
