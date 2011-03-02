@@ -33,15 +33,11 @@ Chess.Piece = new Class({
     },
 
     getMoves: function() {
-        throw 'NotImplemented';
+        throw new Error('NotImplemented');
     },
     
     getSymbol: function() {
-        throw 'NotImplemented';
-    },
-    
-    getCaptures: function() {
-        return this.getMoves();
+        throw new Error('NotImplemented');
     }
 
 });

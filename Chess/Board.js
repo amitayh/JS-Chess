@@ -17,11 +17,10 @@ Chess.Board = new Class({
     },
     
     getSquare: function(x, y) {
-        try {
+        if (x.inRange(0, 7) && y.inRange(0, 7)) {
             return this.squares[y][x];
-        } catch (e) {
-            return null;
         }
+        return null;
     }
 
 });
