@@ -1,12 +1,15 @@
 Chess.Player = new Class({
 
+    Implements: [Options, Events],
+
     game: null,
 
     color: null,
     
     pieces: [],
 
-    initialize: function(game, color) {
+    initialize: function(game, color, options) {
+        this.setOptions(options);
         this.game = game;
         this.color = color;
         this.initPieces();
@@ -36,6 +39,47 @@ Chess.Player = new Class({
 
     isBlack: function() {
         return this.color == Chess.Color.Black;
+    },
+
+    threatensKing: function() {
+        return this.pieces.some(function(piece) {
+            if (!piece.captured) {
+                var moves = piece.getMoves(), square;
+                for (var i = 0, l = moves.length; i < l; i++) {
+                    square = moves[i];
+                    if (square.piece && square.piece instanceof Chess.Piece.King) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        });
+    },
+
+    play: function(from, to) {
+        // Validate move
+        if (this.game.currentRound != this) {
+            throw new Error("It's the other player's turn");
+        }
+        if (!from.piece || from.piece.player != this) {
+            throw new Error("That square ain't yours");
+        }
+        if (!from.piece.getValidMoves().contains(to)) {
+            throw new Error('This move is invalid');
+        }
+
+        // Make the move
+        from.piece.moveTo(to);
+        this.fireEvent('play', [from, to]);
+
+        // Check for a checkmate
+        if (this.threatensKing()) {
+            this.fireEvent('check');
+
+            // TODO: implement a checkmate check
+        }
+
+        return this;
     }
 
 });
