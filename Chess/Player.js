@@ -41,6 +41,10 @@ Chess.Player = new Class({
         return this.color == Chess.Color.Black;
     },
 
+    getRivalPlayer: function() {
+        return this.game.players[this.isWhite() ? 'Black' : 'White'];
+    },
+
     threatensKing: function() {
         return this.pieces.some(function(piece) {
             if (!piece.captured) {

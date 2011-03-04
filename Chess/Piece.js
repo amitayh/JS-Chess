@@ -34,12 +34,10 @@ Chess.Piece = new Class({
 
     getValidMoves: function() {
         // Filter invalid moves from all possible moves (namely - moves that endanger the king)
-        var player = this.player,
-            rivalPlayer = player.game.getRivalPlayer(player),
-            originalSquare = this.square,
-            moves = [];
-        
-        this.getMoves().each(function(square) {
+        var rivalPlayer = this.player.getRivalPlayer(),
+            originalSquare = this.square;
+
+        return this.getMoves().filter(function(square) {
             // Check original state
             var originalPiece = square.piece;
 
@@ -47,18 +45,16 @@ Chess.Piece = new Class({
             this.moveTo(square);
 
             // Consider the move valid if it doesn't endanger the king
-            if (!rivalPlayer.threatensKing()) {
-                moves.push(square);
-            }
+            var isValid = !rivalPlayer.threatensKing();
 
             // Return to original state
             this.moveTo(originalSquare);
             if (originalPiece) {
                 originalPiece.moveTo(square);
             }
-        }, this);
 
-        return moves;
+            return isValid;
+        }, this);
     },
 
     getMoves: function() {
