@@ -7,7 +7,7 @@ Chess.Piece.Rook = new Class({
     },
 
     getMoves: function() {
-        return this.getMovesByVectors(Chess.Piece.Vectors.lateral);
+        return this.getMovesByVectors(Chess.Piece.Vectors.Lateral);
     }
 
 });

@@ -7,8 +7,7 @@ Chess.Piece.King = new Class({
     },
 
     getMoves: function() {
-        var vectors = Chess.Piece.Vectors;
-        return this.getMovesByVectors(vectors.diagonal.append(vectors.lateral), 1);
+        return this.getMovesByVectors(Chess.Piece.Vectors.Omni, 1);
     }
 
 });

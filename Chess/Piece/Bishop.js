@@ -7,7 +7,7 @@ Chess.Piece.Bishop = new Class({
     },
 
     getMoves: function() {
-        return this.getMovesByVectors(Chess.Piece.Vectors.diagonal);
+        return this.getMovesByVectors(Chess.Piece.Vectors.Diagonal);
     }
 
 });

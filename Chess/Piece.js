@@ -97,7 +97,11 @@ Chess.Piece = new Class({
 
 });
 
-Chess.Piece.Vectors = {
-    diagonal: [[1, 1], [1, -1], [-1, -1], [-1, 1]],
-    lateral: [[0, 1], [0, -1], [1, 0], [-1, 0]]
-};
+(function() {
+
+    var vectors = Chess.Piece.Vectors = {};
+    vectors.Diagonal = [[1, 1], [1, -1], [-1, -1], [-1, 1]];
+    vectors.Lateral = [[0, 1], [0, -1], [1, 0], [-1, 0]];
+    vectors.Omni = vectors.Diagonal.append(vectors.Lateral);
+
+})();
