@@ -7,11 +7,8 @@ Chess.Piece.Queen = new Class({
     },
 
     getMoves: function() {
-        // Combine movement capabilities from the bishop and the rook
-        var diagonal = Chess.Piece.Bishop.Movement(this),
-            lateral = Chess.Piece.Rook.Movement(this);
-
-        return diagonal.append(lateral);
+        var vectors = Chess.Piece.Vectors;
+        return this.getMovesByVectors(vectors.diagonal.append(vectors.lateral));
     }
 
 });

@@ -60,9 +60,44 @@ Chess.Piece = new Class({
     getMoves: function() {
         throw new Error('Not Implemented');
     },
+
+    getMovesByVectors: function(vectors, limit) {
+        var moves = [], steps, vector, square;
+
+        for (var i = 0, l = vectors.length; i < l; i++) {
+            steps = 0;
+            vector = vectors[i];
+            square = this.square;
+            // Add all squares in path
+            while (square = square.getSibling(vector[0], vector[1])) {
+                if (square.piece) {
+                    // Square is occupied
+                    if (square.piece.player != this.player) { 
+                        // Occupied by other player - piece can be captured
+                        moves.push(square);
+                    }
+                    break;
+                }
+                moves.push(square);
+                steps++;
+
+                // Check if steps limit exceeded
+                if (limit && steps >= limit) {
+                    break;
+                }
+            }
+        }
+
+        return moves;
+    },
     
     getSymbol: function() {
         throw new Error('Not Implemented');
     }
 
 });
+
+Chess.Piece.Vectors = {
+    diagonal: [[1, 1], [1, -1], [-1, -1], [-1, 1]],
+    lateral: [[0, 1], [0, -1], [1, 0], [-1, 0]]
+};
